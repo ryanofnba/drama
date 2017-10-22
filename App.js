@@ -1,29 +1,30 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   StyleSheet,
   View
 } from 'react-native';
-import ShowList from "./src/components/ShowList/index";
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from './src/reducers/index';
+import ChannelList from './src/components/ChannelList/index';
 
 export default class App extends Component<{}> {
   render() {
     return (
-      <View style={styles.container}>
-        <ShowList />
-      </View>
+        <Provider store={createStore(reducers)}>
+            <View style={styles.container}>
+                <ChannelList />
+            </View>
+        </Provider>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#F8F8F8'
+    flex: 1
+  },
+  channelList: {
+      width: 200
   }
 });
