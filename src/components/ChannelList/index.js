@@ -71,8 +71,7 @@ class ChannelList extends Component {
                 parseString(response.data, (error, result) => {
                     console.log(result.rss.channel[0].item);
                     this.setState({
-                        episodes: result.rss.channel[0].item,
-                        currentList: 'episodes'
+                        episodes: result.rss.channel[0].item
                     });
                 });
             })
@@ -118,6 +117,7 @@ class ChannelList extends Component {
             imageURL={item.description[0]}
             channelURL={item.enclosure[0].$.url}
             onPress={this.handleShowPress}
+            episodes={this.state.episodes}
         />
     )
 
@@ -141,7 +141,7 @@ class ChannelList extends Component {
                             data={this.state.channels}
                             keyExtractor={item => item.title[0]}
                             renderItem={this.renderChannel}
-                            numColumns={2}
+                            numColumns={1}
                         />
                     </List>
                 );
@@ -152,7 +152,7 @@ class ChannelList extends Component {
                             data={this.state.shows}
                             keyExtractor={item => item.title}
                             renderItem={this.renderShow}
-                            numColumns={2}
+                            numColumns={1}
                         />
                     </List>
                 );

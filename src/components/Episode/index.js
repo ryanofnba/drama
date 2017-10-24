@@ -10,23 +10,18 @@ class Episode extends Component {
     }
 
     handlePress() {
+        debugger;
         this.props.onPress(this.props.channelURL);
     }
 
     render() {
-        const imageURL = this.props.imageURL.split("'")[1];
-
         return (
             <TouchableOpacity
                 onPress={this.handlePress}
                 style={styles.container}
             >
-                <View>
-                    <Image
-                        style={{ width: 150, height: 150 }}
-                        source={{ uri: imageURL }}
-                    />
-                    <Text>{this.props.title}</Text>
+                <View style={styles.container}>
+                    <Text>{this.props.title[0].split(' ')[1]}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -35,12 +30,11 @@ class Episode extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    height: 200,
+    width: 50,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column',
-    backgroundColor: '#F8F8F8'
+    backgroundColor: 'pink'
   }
 });
 

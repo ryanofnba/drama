@@ -19,14 +19,21 @@ class Channel extends Component {
         return (
             <TouchableOpacity
                 onPress={this.handlePress}
-                style={styles.container}
             >
-                <View>
+                <View
+                    style={styles.container}
+                >
                     <Image
                         style={{ width: 150, height: 150 }}
                         source={{ uri: imageURL }}
                     />
-                    <Text>{this.props.title}</Text>
+                    <View style={styles.titleContainer}>
+                        <Text
+                            style={styles.titleText}
+                        >
+                            {this.props.title}
+                        </Text>
+                    </View>
                 </View>
             </TouchableOpacity>
         );
@@ -36,15 +43,19 @@ class Channel extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    backgroundColor: '#F8F8F8'
+    flexDirection: 'row',
+    backgroundColor: '#F8F8F8',
+    borderBottomWidth: 1
   },
-  video: {
-    width: 50,
-    height: 50
+  titleContainer: {
+      flex: 1,
+      height: 150,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'pink'
+  },
+  titleText: {
+      fontSize: 25
   }
 });
 
