@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#1e88e5',
     borderBottomWidth: 1
   },
   titleContainer: {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
       height: 150,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: 'pink'
+      backgroundColor: '#1e88e5'
   },
   titleText: {
       fontSize: 25

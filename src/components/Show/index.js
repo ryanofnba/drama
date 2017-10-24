@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { List } from 'react-native-elements';
 import axios from 'axios';
 import { parseString } from 'xml2js';
-import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import Video from 'react-native-video';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import * as actions from '../../actions/index';
 import Episode from '../Episode/index';
 
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#6ab7ff',
     borderBottomWidth: 1
   },
   titleContainer: {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
       height: 150,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: 'pink'
+      backgroundColor: '#1e88e5'
   },
   titleText: {
       fontSize: 25
