@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import axios from 'axios';
+import { parseString } from 'xml2js';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+
+import * as actions from '../../actions/index';
 
 class Channel extends Component {
     constructor(props) {
@@ -8,8 +14,21 @@ class Channel extends Component {
         this.handlePress = this.handlePress.bind(this);
     }
 
+    fetchShows(url) {
+        axios.get(url)
+            .then(response => {
+                parseString(response.data, (error, result) => {
+                    this.props.setShows(result.rss.channel[0].item);
+                    Actions.shows();
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     handlePress() {
-        this.props.onPress(this.props.channelURL);
+        this.fetchShows(this.props.channelURL);
     }
 
     render() {
@@ -58,4 +77,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Channel;
+export default connect(null, actions)(Channel);

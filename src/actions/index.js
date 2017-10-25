@@ -32,10 +32,25 @@ const setVideoLink = videoLink => {
     };
 }
 
+const setShows = shows => {
+    return {
+        type: 'set_shows',
+        payload: shows
+    };
+}
+
+const setEpisodes = episodes => {
+    return {
+        type: 'set_episodes',
+        payload: episodes
+    };
+}
+
 export {
     selectShow,
     clearSelectedShow,
     selectList,
     setSources,
-    setVideoLink
+    setVideoLink,
+    setShows
 };

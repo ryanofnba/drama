@@ -49,39 +49,6 @@ class Main extends Component {
             });
     }
 
-    fetchShows(url) {
-        axios.get(url)
-            .then(response => {
-                parseString(response.data, (error, result) => {
-                    this.props.selectList('shows');
-                    this.setState({
-                        shows: result.rss.channel[0].item
-                    });
-                });
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
-
-    fetchEpisodes(url) {
-        axios.get(url)
-            .then(response => {
-                parseString(response.data, (error, result) => {
-                    this.setState({
-                        episodes: result.rss.channel[0].item
-                    });
-                });
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
-
-    imageURLParser(imageURL) {
-        return imageURL.split("'")[1];
-    }
-
     handleChannelPress(url) {
         this.fetchShows(url);
     }
@@ -145,45 +112,6 @@ class Main extends Component {
                             numColumns={1}
                         />
                     </List>
-                );
-            case 'shows':
-                return (
-                    <List>
-                        <FlatList
-                            data={this.state.shows}
-                            keyExtractor={item => item.title}
-                            renderItem={this.renderShow}
-                            numColumns={1}
-                        />
-                    </List>
-                );
-            case 'episodes':
-                return (
-                    <List>
-                        <FlatList
-                            data={this.state.episodes}
-                            keyExtractor={item => item.title}
-                            renderItem={this.renderEpisode}
-                            numColumns={2}
-                        />
-                    </List>
-                );
-            case 'sources':
-                return (
-                    <List>
-                        <FlatList
-                            data={this.props.sources}
-                            keyExtractor={item => item.title}
-                            renderItem={this.renderSources}
-                            numColumns={1}
-                        />
-                    </List>
-                );
-            case 'video':
-                return (
-                    <Video
-                        videoLink={this.props.videoLink}
-                    />
                 );
             default:
                 return (

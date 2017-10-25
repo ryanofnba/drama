@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { parseString } from 'xml2js';
-
+import { Actions } from 'react-native-router-flux';
 import * as actions from '../../actions/index';
 
 class Episode extends Component {
@@ -26,7 +26,7 @@ class Episode extends Component {
             .then(response => {
                 parseString(response.data, (error, result) => {
                     this.props.setSources(result.rss.channel[0].item);
-                    this.props.selectList('sources');
+                    Actions.sources();
                 });
             })
             .catch(error => {

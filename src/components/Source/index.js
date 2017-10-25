@@ -20,7 +20,6 @@ class Source extends Component {
         } else {
             this.props.setVideoLink(this.props.videoURL.url);
             Actions.video();
-            // this.props.selectList('video');
         }
     }
 
