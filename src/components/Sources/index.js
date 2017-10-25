@@ -19,7 +19,7 @@ class Sources extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <List>
+                <List style={{ flex: 1 }}>
                     <FlatList
                         data={this.props.sources}
                         keyExtractor={item => item.title}

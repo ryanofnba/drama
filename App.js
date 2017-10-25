@@ -8,10 +8,12 @@ import { createStore } from 'redux';
 import reducers from './src/reducers/index';
 import Router from './src/Router';
 
+export const store = createStore(reducers);
+
 export default class App extends Component<{}> {
   render() {
     return (
-        <Provider store={createStore(reducers)}>
+        <Provider store={store}>
             <Router />
         </Provider>
     );

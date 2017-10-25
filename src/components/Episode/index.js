@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { parseString } from 'xml2js';
@@ -9,10 +9,6 @@ import * as actions from '../../actions/index';
 class Episode extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            sources: []
-        };
 
         this.handlePress = this.handlePress.bind(this);
     }
@@ -35,15 +31,16 @@ class Episode extends Component {
     }
 
     render() {
+        const title = this.props.title[0].split(' ');
         return (
-            <TouchableOpacity
+            <TouchableHighlight
                 onPress={this.handlePress}
                 style={styles.container}
             >
                 <View style={styles.container}>
-                    <Text>{this.props.title[0].split(' ')[1]}</Text>
+                    <Text>{title[title.length - 1]}</Text>
                 </View>
-            </TouchableOpacity>
+            </TouchableHighlight>
         );
     }
 }

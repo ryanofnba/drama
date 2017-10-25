@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableHighlight, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { parseString } from 'xml2js';
 import { connect } from 'react-redux';
@@ -10,7 +10,7 @@ import * as actions from '../../actions/index';
 class Channel extends Component {
     constructor(props) {
         super(props);
-        debugger;
+
         this.handlePress = this.handlePress.bind(this);
     }
 
@@ -21,11 +21,12 @@ class Channel extends Component {
                     const firstItem = result.rss.channel[0].item[0].enclosure[0].$.url;
                     const isShow = firstItem.includes('film');
                     if (isShow) {
+                        this.props.onLoading(false);
                         this.props.setShows(result.rss.channel[0].item);
                         Actions.shows();
                     } else {
                         this.props.setChannels(result.rss.channel[0].item);
-                        Actions.channels();
+                        Actions.subchannels();
                     }
                 });
             })
@@ -35,6 +36,7 @@ class Channel extends Component {
     }
 
     handlePress() {
+        this.props.onLoading(true);
         this.fetchShows(this.props.channelURL);
     }
 
@@ -42,7 +44,7 @@ class Channel extends Component {
         const imageURL = this.props.imageURL.split("'")[1];
 
         return (
-            <TouchableOpacity
+            <TouchableHighlight
                 onPress={this.handlePress}
             >
                 <View
@@ -60,7 +62,7 @@ class Channel extends Component {
                         </Text>
                     </View>
                 </View>
-            </TouchableOpacity>
+            </TouchableHighlight>
         );
     }
 }
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
       height: 150,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#1e88e5'
+      backgroundColor: '#e0e0e0'
   },
   titleText: {
       fontSize: 25

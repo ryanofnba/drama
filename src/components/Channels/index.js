@@ -3,16 +3,16 @@ import { View, ActivityIndicator, FlatList, StyleSheet } from 'react-native';
 import { List } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
-import Show from '../Show/index';
+import Channel from '../Channel/index';
 
-class Shows extends Component {
+class Channels extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {
+        this.state = ({
             loading: false
-        };
+        });
 
         this.handleLoading = this.handleLoading.bind(this);
     }
@@ -23,29 +23,34 @@ class Shows extends Component {
         });
     }
 
-    renderShow = ({ item }) => (
-        <Show
-            key={item.title}
-            title={item.title}
-            bookmark={item.bookmark}
-            imageURL={item.description ? item.description[0] : null}
+    renderChannel = ({ item }) => (
+        <Channel
+            key={item.title[0]}
+            title={item.title[0]}
+            bookmark={item.bookmark[0]}
+            imageURL={item.description[0]}
             channelURL={item.enclosure[0].$.url}
-            episodes={this.props.episodes}
             onLoading={this.handleLoading}
         />
     )
 
+    renderList() {
+        return (
+            <List style={{ flex: 1 }}>
+                <FlatList
+                    data={this.props.channels}
+                    keyExtractor={item => item.title[0]}
+                    renderItem={this.renderChannel}
+                    numColumns={1}
+                />
+            </List>
+        );
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <List style={{ flex: 1 }}>
-                    <FlatList
-                        data={this.props.shows}
-                        keyExtractor={item => item.title}
-                        renderItem={this.renderShow}
-                        numColumns={1}
-                    />
-                </List>
+                { this.renderList() }
                 <ActivityIndicator
                     style={{ position: 'absolute', top: 250, left: 180 }}
                     animating={this.state.loading}
@@ -66,9 +71,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        shows: state.shows,
-        episodes: state.episodes
+        channels: state.channels
     };
 };
 
-export default connect(mapStateToProps, actions)(Shows);
+export default connect(mapStateToProps, actions)(Channels);

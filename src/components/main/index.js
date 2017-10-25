@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, FlatList, StyleSheet } from 'react-native';
 import { List } from 'react-native-elements';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -12,29 +12,40 @@ class Main extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            loading: false
+        };
+
         this.rssLink = 'https://irss.se/dramas';
     }
 
     componentWillMount() {
-        if (!this.props.channels) {
+        if (!this.props.homeChannels) {
+            this.setState({
+                loading: true
+            });
+
             this.fetchChannel(this.rssLink, true);
         }
     }
 
-    fetchChannel(url, isFirstFetch) {
+    fetchChannel(url) {
         axios.get(url)
             .then(response => {
                 parseString(response.data, (error, result) => {
-                    if (isFirstFetch) {
-                        this.props.setHomeChannels(result.rss.channel[0].item);
-                    }
-
-                    this.props.setChannels(result.rss.channel[0].item);
+                    this.setState({
+                        loading: false
+                    });
+                    this.props.setHomeChannels(result.rss.channel[0].item);
                 });
             })
             .catch(error => {
                 console.log(error);
             });
+    }
+
+    handleStartLoading() {
+
     }
 
     renderChannel = ({ item }) => (
@@ -44,14 +55,15 @@ class Main extends Component {
             bookmark={item.bookmark[0]}
             imageURL={item.description[0]}
             channelURL={item.enclosure[0].$.url}
+            onLoading={this.handleStartLoading}
         />
     )
 
     renderList() {
         return (
-            <List>
+            <List style={{ flex: 1 }}>
                 <FlatList
-                    data={this.props.channels}
+                    data={this.props.homeChannels}
                     keyExtractor={item => item.title[0]}
                     renderItem={this.renderChannel}
                     numColumns={1}
@@ -64,6 +76,12 @@ class Main extends Component {
         return (
             <View style={styles.container}>
                 { this.renderList() }
+                <ActivityIndicator
+                    style={{ position: 'absolute', top: 250, left: 180 }}
+                    animating={this.state.loading}
+                    color='#ffffff'
+                    size='large'
+                />
             </View>
         );
     }
@@ -81,7 +99,8 @@ const mapStateToProps = (state) => {
         selectedList: state.selectedList,
         sources: state.sources,
         videoLink: state.videoLink,
-        channels: state.channels
+        channels: state.channels,
+        homeChannels: state.homeChannels
     };
 };
 

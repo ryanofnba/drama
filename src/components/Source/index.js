@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { parseString } from 'xml2js';
@@ -29,7 +29,6 @@ class Source extends Component {
                 parseString(response.data, (error, result) => {
                     this.props.setVideoLink(result.rss.channel[0].item[0].enclosure[0].$.url);
                     Actions.video();
-                    // this.props.selectList('video');
                 });
             })
             .catch(error => {
@@ -39,14 +38,14 @@ class Source extends Component {
 
     render() {
         return (
-            <TouchableOpacity
+            <TouchableHighlight
                 onPress={this.handlePress}
                 style={styles.container}
             >
                 <View>
                     <Text>{this.props.title}</Text>
                 </View>
-            </TouchableOpacity>
+            </TouchableHighlight>
         );
     }
 }

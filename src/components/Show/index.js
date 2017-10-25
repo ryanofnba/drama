@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { parseString } from 'xml2js';
-import { View, Text, Image, TouchableOpacity, LayoutAnimation, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableHighlight, LayoutAnimation, StyleSheet } from 'react-native';
 import * as actions from '../../actions/index';
 import Episode from '../Episode/index';
 
@@ -25,6 +25,7 @@ class Show extends Component {
         axios.get(url)
             .then(response => {
                 parseString(response.data, (error, result) => {
+                    this.props.onLoading(false);
                     this.setState({
                         episodes: result.rss.channel[0].item
                     });
@@ -36,6 +37,7 @@ class Show extends Component {
     }
 
     handlePress() {
+        this.props.onLoading(true);
         this.props.selectShow(this.props.channelURL);
         this.fetchEpisodes(this.props.channelURL);
     }
@@ -62,7 +64,7 @@ class Show extends Component {
         const imageURL = this.props.imageURL ? this.props.imageURL.split("'")[1] : '';
 
         return (
-            <TouchableOpacity
+            <TouchableHighlight
                 onPress={this.handlePress}
                 style={styles.container}
             >
@@ -80,7 +82,7 @@ class Show extends Component {
                         {this.renderEpisodes()}
                     </View>
                 </View>
-            </TouchableOpacity>
+            </TouchableHighlight>
         );
     }
 }
