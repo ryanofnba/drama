@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import Video from 'react-native-video';
 
 class Channel extends Component {
     constructor(props) {

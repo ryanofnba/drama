@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { WebView, View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import VideoPlayer from 'react-native-video-player';
+import { connect } from 'react-redux';
 
 class Video extends Component {
     render() {
@@ -8,7 +8,7 @@ class Video extends Component {
             <View style={styles.container}>
                 <WebView
                     style={styles.video}
-                    source={{ uri: 'http://videobug.se/v/040HiS7WUBCgyICyxXH0Jw?xml=1&title=Oh+My+Grad+-+Episode+22' }}
+                    source={{ uri: this.props.videoLink }}
                 />
             </View>
         );
@@ -27,4 +27,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Video;
+const mapStateToProps = (state) => {
+    return {
+        videoLink: state.videoLink
+    };
+};
+
+export default connect(mapStateToProps, null)(Video);

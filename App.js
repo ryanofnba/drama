@@ -6,16 +6,13 @@ import {
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './src/reducers/index';
-import ChannelList from './src/components/ChannelList/index';
-import Video from './src/components/Video/index';
+import Router from './src/Router';
 
 export default class App extends Component<{}> {
   render() {
     return (
         <Provider store={createStore(reducers)}>
-            <View style={styles.container}>
-                <Video />
-            </View>
+            <Router />
         </Provider>
     );
   }

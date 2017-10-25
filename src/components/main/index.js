@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
+import { View, FlatList, StyleSheet } from 'react-native';
+import { List } from 'react-native-elements';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { parseString } from 'xml2js';
-
-import Header from '../header/index';
+import * as actions from '../../actions/index';
 import Channel from '../Channel/index';
 import Show from '../Show/index';
 import Episode from '../Episode/index';
+import Source from '../Source/index';
+import Video from '../Video/index';
 
-class ChannelList extends Component {
+class Main extends Component {
 
     constructor(props) {
         super(props);
@@ -26,7 +28,6 @@ class ChannelList extends Component {
         this.rssLink = 'https://irss.se/dramas';
         this.handleChannelPress = this.handleChannelPress.bind(this);
         this.handleShowPress = this.handleShowPress.bind(this);
-        this.handleEpisodePress = this.handleEpisodePress.bind(this);
     }
 
     componentWillMount() {
@@ -37,10 +38,9 @@ class ChannelList extends Component {
         axios.get(url)
             .then(response => {
                 parseString(response.data, (error, result) => {
-                    console.log(result.rss.channel[0].item);
+                    this.props.selectList('channels');
                     this.setState({
-                        channels: result.rss.channel[0].item,
-                        currentList: 'channels'
+                        channels: result.rss.channel[0].item
                     });
                 });
             })
@@ -53,10 +53,9 @@ class ChannelList extends Component {
         axios.get(url)
             .then(response => {
                 parseString(response.data, (error, result) => {
-                    console.log(result.rss.channel[0].item);
+                    this.props.selectList('shows');
                     this.setState({
-                        shows: result.rss.channel[0].item,
-                        currentList: 'shows'
+                        shows: result.rss.channel[0].item
                     });
                 });
             })
@@ -69,7 +68,6 @@ class ChannelList extends Component {
         axios.get(url)
             .then(response => {
                 parseString(response.data, (error, result) => {
-                    console.log(result.rss.channel[0].item);
                     this.setState({
                         episodes: result.rss.channel[0].item
                     });
@@ -85,17 +83,11 @@ class ChannelList extends Component {
     }
 
     handleChannelPress(url) {
-        console.log(url);
         this.fetchShows(url);
     }
 
     handleShowPress(url) {
-        console.log(url);
         this.fetchEpisodes(url);
-    }
-
-    handleEpisodePress(url) {
-        console.log(url);
     }
 
     renderChannel = ({ item }) => (
@@ -114,10 +106,19 @@ class ChannelList extends Component {
             key={item.title}
             title={item.title}
             bookmark={item.bookmark}
-            imageURL={item.description[0]}
+            imageURL={item.description ? item.description[0] : null}
             channelURL={item.enclosure[0].$.url}
             onPress={this.handleShowPress}
             episodes={this.state.episodes}
+        />
+    )
+
+    renderSources = ({ item }) => (
+        <Source
+            key={item.title[0]}
+            title={item.title[0]}
+            bookmark={item.bookmark}
+            videoURL={item.enclosure[0].$}
         />
     )
 
@@ -133,7 +134,7 @@ class ChannelList extends Component {
     )
 
     renderList() {
-        switch (this.state.currentList) {
+        switch (this.props.selectedList) {
             case 'channels':
                 return (
                     <List>
@@ -167,6 +168,34 @@ class ChannelList extends Component {
                         />
                     </List>
                 );
+            case 'sources':
+                return (
+                    <List>
+                        <FlatList
+                            data={this.props.sources}
+                            keyExtractor={item => item.title}
+                            renderItem={this.renderSources}
+                            numColumns={1}
+                        />
+                    </List>
+                );
+            case 'video':
+                return (
+                    <Video
+                        videoLink={this.props.videoLink}
+                    />
+                );
+            default:
+                return (
+                    <List>
+                        <FlatList
+                            data={this.state.channels}
+                            keyExtractor={item => item.title[0]}
+                            renderItem={this.renderChannel}
+                            numColumns={1}
+                        />
+                    </List>
+                );
         }
     }
 
@@ -186,4 +215,12 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ChannelList;
+const mapStateToProps = (state) => {
+    return {
+        selectedList: state.selectedList,
+        sources: state.sources,
+        videoLink: state.videoLink
+    };
+};
+
+export default connect(mapStateToProps, actions)(Main);

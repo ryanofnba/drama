@@ -1,32 +1,36 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { parseString } from 'xml2js';
+import { Actions } from 'react-native-router-flux';
 
 import * as actions from '../../actions/index';
 
-class Episode extends Component {
+class Source extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            sources: []
-        };
 
         this.handlePress = this.handlePress.bind(this);
     }
 
     handlePress() {
-        this.fetchEpisodeSources(this.props.episodeLinkURL.url);
+        if (this.props.videoURL.type === 'application/rss+xml') {
+            this.fetchVideoLink(this.props.videoURL.url);
+        } else {
+            this.props.setVideoLink(this.props.videoURL.url);
+            Actions.video();
+            // this.props.selectList('video');
+        }
     }
 
-    fetchEpisodeSources(url) {
+    fetchVideoLink(url) {
         axios.get(url)
             .then(response => {
                 parseString(response.data, (error, result) => {
-                    this.props.setSources(result.rss.channel[0].item);
-                    this.props.selectList('sources');
+                    this.props.setVideoLink(result.rss.channel[0].item[0].enclosure[0].$.url);
+                    Actions.video();
+                    // this.props.selectList('video');
                 });
             })
             .catch(error => {
@@ -40,8 +44,8 @@ class Episode extends Component {
                 onPress={this.handlePress}
                 style={styles.container}
             >
-                <View style={styles.container}>
-                    <Text>{this.props.title[0].split(' ')[1]}</Text>
+                <View>
+                    <Text>{this.props.title}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -50,12 +54,13 @@ class Episode extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: 60,
-    height: 60,
+    flex: 1,
+    height: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#6ab7ff'
+    backgroundColor: '#6ab7ff',
+    borderBottomWidth: 1
   }
 });
 
-export default connect(null, actions)(Episode);
+export default connect(null, actions)(Source);

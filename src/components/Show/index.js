@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { parseString } from 'xml2js';
-import Video from 'react-native-video';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, LayoutAnimation, StyleSheet } from 'react-native';
 import * as actions from '../../actions/index';
 import Episode from '../Episode/index';
 
@@ -16,6 +15,10 @@ class Show extends Component {
         };
 
         this.handlePress = this.handlePress.bind(this);
+    }
+
+    componentWillUpdate() {
+        LayoutAnimation.easeInEaseOut();
     }
 
     fetchEpisodes(url) {
@@ -56,7 +59,7 @@ class Show extends Component {
     }
 
     render() {
-        const imageURL = this.props.imageURL.split("'")[1];
+        const imageURL = this.props.imageURL ? this.props.imageURL.split("'")[1] : '';
 
         return (
             <TouchableOpacity
