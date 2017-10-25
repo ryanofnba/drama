@@ -17,13 +17,10 @@ class Video extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flex: 1
     },
     video: {
-        width: 400,
-        height: 500
+        flex: 1
     }
 });
 

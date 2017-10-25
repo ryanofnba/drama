@@ -10,7 +10,7 @@ import * as actions from '../../actions/index';
 class Channel extends Component {
     constructor(props) {
         super(props);
-
+        debugger;
         this.handlePress = this.handlePress.bind(this);
     }
 
@@ -18,8 +18,15 @@ class Channel extends Component {
         axios.get(url)
             .then(response => {
                 parseString(response.data, (error, result) => {
-                    this.props.setShows(result.rss.channel[0].item);
-                    Actions.shows();
+                    const firstItem = result.rss.channel[0].item[0].enclosure[0].$.url;
+                    const isShow = firstItem.includes('film');
+                    if (isShow) {
+                        this.props.setShows(result.rss.channel[0].item);
+                        Actions.shows();
+                    } else {
+                        this.props.setChannels(result.rss.channel[0].item);
+                        Actions.channels();
+                    }
                 });
             })
             .catch(error => {

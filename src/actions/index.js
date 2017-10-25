@@ -46,11 +46,27 @@ const setEpisodes = episodes => {
     };
 }
 
+const setChannels = channels => {
+    return {
+        type: 'set_channels',
+        payload: channels
+    };
+}
+
+const setHomeChannels = channels => {
+    return {
+        type: 'set_home_channels',
+        payload: channels
+    };
+}
+
 export {
     selectShow,
     clearSelectedShow,
     selectList,
     setSources,
     setVideoLink,
-    setShows
+    setShows,
+    setChannels,
+    setHomeChannels
 };
