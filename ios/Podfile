@@ -1,0 +1,34 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'drama' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for drama
+  pod 'google-cast-sdk'
+
+  target 'drama-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'dramaTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'drama-tvOS' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for drama-tvOS
+
+  target 'drama-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

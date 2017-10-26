@@ -36,7 +36,7 @@ class Main extends Component {
                     this.setState({
                         loading: false
                     });
-                    this.props.setHomeChannels(result.rss.channel[0].item);
+                    this.props.setHomeChannels(result.rss.channel[0].item.slice(1));
                 });
             })
             .catch(error => {
@@ -66,7 +66,7 @@ class Main extends Component {
                     data={this.props.homeChannels}
                     keyExtractor={item => item.title[0]}
                     renderItem={this.renderChannel}
-                    numColumns={1}
+                    numColumns={3}
                 />
             </List>
         );

@@ -46,14 +46,17 @@ class Channel extends Component {
         return (
             <TouchableHighlight
                 onPress={this.handlePress}
+                style={styles.container}
             >
                 <View
                     style={styles.container}
                 >
-                    <Image
-                        style={{ width: 150, height: 150 }}
-                        source={{ uri: imageURL }}
-                    />
+                    <View style={styles.imageContainer}>
+                        <Image
+                            style={{ width: 150, height: 150 }}
+                            source={{ uri: imageURL }}
+                        />
+                    </View>
                     <View style={styles.titleContainer}>
                         <Text
                             style={styles.titleText}
@@ -70,7 +73,15 @@ class Channel extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
+    backgroundColor: '#1e88e5',
+    borderBottomWidth: 1
+  },
+  imageContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#1e88e5',
     borderBottomWidth: 1
   },
