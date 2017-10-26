@@ -11,13 +11,20 @@ class Show extends Component {
         super(props);
 
         this.state = {
-            episodes: []
+            episodes: [],
+            expanded: false
         };
 
         this.handlePress = this.handlePress.bind(this);
     }
 
     componentWillUpdate() {
+        if (this.state.expanded) {
+            this.setState({
+                expanded: false
+            });
+        }
+
         LayoutAnimation.easeInEaseOut();
     }
 
@@ -27,6 +34,7 @@ class Show extends Component {
                 parseString(response.data, (error, result) => {
                     this.props.onLoading(false);
                     this.setState({
+                        expanded: true,
                         episodes: result.rss.channel[0].item
                     });
                 });
@@ -37,13 +45,20 @@ class Show extends Component {
     }
 
     handlePress() {
-        this.props.onLoading(true);
-        this.props.selectShow(this.props.channelURL);
-        this.fetchEpisodes(this.props.channelURL);
+        if (!this.state.expanded) {
+            this.props.onLoading(true);
+            this.props.selectShow(this.props.channelURL);
+            this.fetchEpisodes(this.props.channelURL);
+        } else {
+            this.setState({
+                expanded: false
+            });
+        }
+
     }
 
     renderEpisodes() {
-        if (this.props.channelURL === this.props.selectedShow) {
+        if (this.props.channelURL === this.props.selectedShow && this.state.expanded) {
             return (
                 this.state.episodes.map(episode => {
                     return (

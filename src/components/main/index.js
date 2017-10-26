@@ -77,9 +77,9 @@ class Main extends Component {
             <View style={styles.container}>
                 { this.renderList() }
                 <ActivityIndicator
-                    style={{ position: 'absolute', top: 250, left: 180 }}
+                    style={{ position: 'absolute', top: 400, left: 400 }}
                     animating={this.state.loading}
-                    color='#ffffff'
+                    color='#4f4f4f'
                     size='large'
                 />
             </View>

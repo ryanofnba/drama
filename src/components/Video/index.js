@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { WebView, View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { WebView, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 class Video extends Component {
