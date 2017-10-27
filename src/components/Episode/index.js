@@ -37,9 +37,7 @@ class Episode extends Component {
                 onPress={this.handlePress}
                 style={styles.container}
             >
-                <View style={styles.container}>
-                    <Text>{title[title.length - 1]}</Text>
-                </View>
+                <Text style={styles.titleText}>{title[title.length - 1]}</Text>
             </TouchableHighlight>
         );
     }
@@ -51,8 +49,14 @@ const styles = StyleSheet.create({
     height: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#6ab7ff'
-  }
+    backgroundColor: '#c7c7c7',
+    borderWidth: 1,
+    borderRadius: 10,
+    margin: 5
+},
+    titleText: {
+        fontWeight: 'bold'
+    }
 });
 
 export default connect(null, actions)(Episode);

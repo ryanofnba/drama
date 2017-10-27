@@ -86,11 +86,11 @@ class Show extends Component {
                 <View style={styles.container}>
                     <View style={styles.topContainer}>
                         <Image
-                            style={{ width: 150, height: 150 }}
+                            style={{ width: 200, height: 200 }}
                             source={{ uri: imageURL }}
                         />
                         <View style={styles.titleContainer}>
-                            <Text>{this.props.title}</Text>
+                            <Text style={styles.titleText}>{this.props.title}</Text>
                         </View>
                     </View>
                     <View style={styles.episodesContainer}>
@@ -119,15 +119,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    backgroundColor: '#6ab7ff',
-    borderBottomWidth: 1
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    paddingLeft: 200
   },
   titleContainer: {
       flex: 1,
-      height: 150,
+      height: 200,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#1e88e5'
+      backgroundColor: 'white'
   },
   titleText: {
       fontSize: 25

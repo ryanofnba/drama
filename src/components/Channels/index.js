@@ -41,7 +41,7 @@ class Channels extends Component {
                     data={this.props.channels}
                     keyExtractor={item => item.title[0]}
                     renderItem={this.renderChannel}
-                    numColumns={1}
+                    numColumns={2}
                 />
             </List>
         );

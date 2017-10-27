@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#1e88e5',
+    backgroundColor: 'white',
     borderBottomWidth: 1
   },
   imageContainer: {
@@ -82,12 +82,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#1e88e5',
+    backgroundColor: 'white',
     borderBottomWidth: 1
   },
   titleContainer: {
       flex: 1,
-      height: 150,
+      height: 50,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#e0e0e0'

@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -43,7 +44,6 @@
 		9004117534E948B6A1B23097 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1259B8DA2FDC4116BD6D7FCD /* Octicons.ttf */; };
 		A0879C18B1F64E22BAED3EF0 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 923B4E9C13124F738E0A760E /* MaterialIcons.ttf */; };
 		A1211F96BF284904B0737B75 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0451192609A74BCD99E3CD62 /* FontAwesome.ttf */; };
-		A257747042604184849BD7EE /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D177DA376C428EA83FD64F /* libRNVectorIcons.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		BCC1D1BB1F99EB5D00D9B270 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = BCC1D1981F99EB5D00D9B270 /* Fonts */; };
 		BCC1D1C81F99EBAA00D9B270 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCC1D1BD1F99EBAA00D9B270 /* Entypo.ttf */; };
@@ -60,7 +60,6 @@
 		D0D9E53A74574751A22CB305 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1103B65EC7340D691956321 /* Zocial.ttf */; };
 		F1FE934811214226AE792F06 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9296A03D77354D7CA4779728 /* Ionicons.ttf */; };
 		F4453DCB9AB642249E716703 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79CFCE03A7074844B280FB8C /* Entypo.ttf */; };
-		9807B0A403DC43C7B94F28F1 /* libGoogleCast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35AB1241D549467BA0B8F2FE /* libGoogleCast.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -350,7 +349,6 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		923B4E9C13124F738E0A760E /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		9296A03D77354D7CA4779728 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		96D177DA376C428EA83FD64F /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		A7E7CF76D5464FA59C2C9EDE /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		BCC1D1981F99EB5D00D9B270 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
@@ -369,8 +367,6 @@
 		E7EC2E7161874B83986401F2 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		EA2C45CB276C4772A1E501F4 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		F1103B65EC7340D691956321 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		4D1C7C3A4B874D7291BA2738 /* GoogleCast.xcodeproj */ = {isa = PBXFileReference; name = "GoogleCast.xcodeproj"; path = "../node_modules/react-native-google-cast/ios/GoogleCast.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		35AB1241D549467BA0B8F2FE /* libGoogleCast.a */ = {isa = PBXFileReference; name = "libGoogleCast.a"; path = "libGoogleCast.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,8 +395,6 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				A257747042604184849BD7EE /* libRNVectorIcons.a in Frameworks */,
-				9807B0A403DC43C7B94F28F1 /* libGoogleCast.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,7 +569,6 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				E1B987B2699F49D3BE8BCFAA /* RNVectorIcons.xcodeproj */,
-				4D1C7C3A4B874D7291BA2738 /* GoogleCast.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -629,7 +622,6 @@
 			isa = PBXGroup;
 			children = (
 				BCC1D1981F99EB5D00D9B270 /* Fonts */,
-				96D177DA376C428EA83FD64F /* libRNVectorIcons.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
