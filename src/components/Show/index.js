@@ -16,6 +16,7 @@ class Show extends Component {
         };
 
         this.handlePress = this.handlePress.bind(this);
+        this.fetchEpisodes = this.fetchEpisodes.bind(this);
     }
 
     componentWillUpdate() {
@@ -28,14 +29,17 @@ class Show extends Component {
         LayoutAnimation.easeInEaseOut();
     }
 
-    fetchEpisodes(url) {
+    fetchEpisodes(url, reFetch) {
         axios.get(url)
             .then(response => {
                 parseString(response.data, (error, result) => {
+                    debugger;
                     this.props.onLoading(false);
                     this.setState({
                         expanded: true,
-                        episodes: result.rss.channel[0].item
+                        episodes: reFetch
+                            ? this.state.episodes.concat(result.rss.channel[0].item)
+                            : result.rss.channel[0].item
                     });
                 });
             })
@@ -48,13 +52,12 @@ class Show extends Component {
         if (!this.state.expanded) {
             this.props.onLoading(true);
             this.props.selectShow(this.props.channelURL);
-            this.fetchEpisodes(this.props.channelURL);
+            this.fetchEpisodes(this.props.channelURL, false);
         } else {
             this.setState({
                 expanded: false
             });
         }
-
     }
 
     renderEpisodes() {
@@ -68,6 +71,7 @@ class Show extends Component {
                             bookmark={episode.bookmark}
                             imageURL={episode.description[0]}
                             episodeLinkURL={episode.enclosure[0].$}
+                            onFetchEpisodes={this.fetchEpisodes}
                         />
                     );
                 })
