@@ -6,7 +6,7 @@ target 'drama' do
   # use_frameworks!
 
   # Pods for drama
-  pod 'google-cast-sdk', '~> 3.3.0'
+  #pod 'google-cast-sdk', '~> 3.3.0'
 
   # target 'drama-tvOSTests' do
   #   inherit! :search_paths

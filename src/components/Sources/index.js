@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet, LayoutAnimation } from 'react-native';
 import { List } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { parseString } from 'xml2js';
-import { View, Text, Image, TouchableHighlight, LayoutAnimation, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableWithoutFeedback, LayoutAnimation, StyleSheet } from 'react-native';
 import * as actions from '../../actions/index';
 import Episode from '../Episode/index';
+import Source from '../Source/index';
 
 class Show extends Component {
     constructor(props) {
@@ -12,17 +13,26 @@ class Show extends Component {
 
         this.state = {
             episodes: [],
-            expanded: false
+            expanded: false,
+            expandSources: false
         };
 
         this.handlePress = this.handlePress.bind(this);
         this.fetchEpisodes = this.fetchEpisodes.bind(this);
+        this.handleFinishFetchingSources = this.handleFinishFetchingSources.bind(this);
     }
 
     componentWillUpdate() {
         if (this.state.expanded) {
             this.setState({
                 expanded: false
+            });
+        }
+
+        if (this.state.expandSources) {
+            this.setState({
+                expanded: true,
+                expandSources: false
             });
         }
 
@@ -33,7 +43,6 @@ class Show extends Component {
         axios.get(url)
             .then(response => {
                 parseString(response.data, (error, result) => {
-                    debugger;
                     this.props.onLoading(false);
                     this.setState({
                         expanded: true,
@@ -48,12 +57,19 @@ class Show extends Component {
             });
     }
 
+    handleFinishFetchingSources() {
+        this.setState({
+            expanded: true,
+            expandSources: true
+        });
+    }
+
     handlePress() {
         if (!this.state.expanded) {
             this.props.onLoading(true);
             this.props.selectShow(this.props.channelURL);
             this.fetchEpisodes(this.props.channelURL, false);
-        } else {
+        } else if (this.state.expanded) {
             this.setState({
                 expanded: false
             });
@@ -72,6 +88,24 @@ class Show extends Component {
                             imageURL={episode.description[0]}
                             episodeLinkURL={episode.enclosure[0].$}
                             onFetchEpisodes={this.fetchEpisodes}
+                            onFinishFetchingSources={this.handleFinishFetchingSources}
+                        />
+                    );
+                })
+            );
+        }
+    }
+
+    renderSources() {
+        if (this.state.expandSources) {
+            return (
+                this.props.sources.map(source => {
+                    return (
+                        <Source
+                            key={source.title[0]}
+                            title={source.title[0]}
+                            bookmark={source.bookmark}
+                            videoURL={source.enclosure[0].$}
                         />
                     );
                 })
@@ -83,11 +117,10 @@ class Show extends Component {
         const imageURL = this.props.imageURL ? this.props.imageURL.split("'")[1] : '';
 
         return (
-            <TouchableHighlight
-                onPress={this.handlePress}
-                style={styles.container}
-            >
-                <View style={styles.container}>
+            <View style={styles.container}>
+                <TouchableWithoutFeedback
+                    onPress={this.handlePress}
+                >
                     <View style={styles.topContainer}>
                         <Image
                             style={{ width: 200, height: 200 }}
@@ -95,13 +128,19 @@ class Show extends Component {
                         />
                         <View style={styles.titleContainer}>
                             <Text style={styles.titleText}>{this.props.title}</Text>
+                            <Text style={styles.arrowText}>
+                                {this.state.expanded ? 'hide' : 'expand'}
+                            </Text>
                         </View>
                     </View>
-                    <View style={styles.episodesContainer}>
-                        {this.renderEpisodes()}
-                    </View>
+                </TouchableWithoutFeedback>
+                <View style={styles.episodesContainer}>
+                    {this.renderEpisodes()}
                 </View>
-            </TouchableHighlight>
+                <View style={styles.sourcesContainer}>
+                    {this.renderSources()}
+                </View>
+            </View>
         );
     }
 }
@@ -110,38 +149,49 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#F8F8F8',
-    borderBottomWidth: 1
+    padding: 20,
+    marginBottom: 10
   },
   topContainer: {
     flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#F8F8F8',
-    borderBottomWidth: 1
+    flexDirection: 'row'
   },
   episodesContainer: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     backgroundColor: 'white',
-    borderBottomWidth: 1,
     paddingLeft: 200
+  },
+  sourcesContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    backgroundColor: 'white'
   },
   titleContainer: {
       flex: 1,
       height: 200,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      borderTopLeftRadius: 50,
+      borderTopRightRadius: 50,
   },
   titleText: {
       fontSize: 25
+  },
+  arrowText: {
+      marginTop: 20,
+      fontSize: 20,
+      color: '#2286c3'
   }
 });
 
 const mapStateToProps = state => {
     return {
-        selectedShow: state.selectedShow
+        selectedShow: state.selectedShow,
+        sources: state.sources
     };
 };
 

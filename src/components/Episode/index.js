@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
+import { Text, TouchableHighlight, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { parseString } from 'xml2js';
-import { Actions } from 'react-native-router-flux';
 import * as actions from '../../actions/index';
 
 class Episode extends Component {
@@ -26,7 +25,8 @@ class Episode extends Component {
             .then(response => {
                 parseString(response.data, (error, result) => {
                     this.props.setSources(result.rss.channel[0].item);
-                    Actions.sources();
+                    this.props.onFinishFetchingSources();
+                    //Actions.sources();
                 });
             })
             .catch(error => {
@@ -49,12 +49,11 @@ class Episode extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: 60,
-    height: 60,
+    width: 57,
+    height: 55,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#c7c7c7',
-    borderWidth: 1,
+    backgroundColor: '#9be7ff',
     borderRadius: 10,
     margin: 5
 },

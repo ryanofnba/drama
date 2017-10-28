@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableHighlight, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { parseString } from 'xml2js';
 import { connect } from 'react-redux';
@@ -44,7 +44,7 @@ class Channel extends Component {
         const imageURL = this.props.imageURL.split("'")[1];
 
         return (
-            <TouchableHighlight
+            <TouchableWithoutFeedback
                 onPress={this.handlePress}
                 style={styles.container}
             >
@@ -65,7 +65,7 @@ class Channel extends Component {
                         </Text>
                     </View>
                 </View>
-            </TouchableHighlight>
+            </TouchableWithoutFeedback>
         );
     }
 }
@@ -75,22 +75,22 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
-    borderBottomWidth: 1
+    padding: 20
   },
   imageContainer: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
-    borderBottomWidth: 1
+    backgroundColor: 'white'
   },
   titleContainer: {
       flex: 1,
       height: 50,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#e0e0e0'
+      backgroundColor: '#9be7ff',
+      borderRadius: 30
   },
   titleText: {
       fontSize: 25

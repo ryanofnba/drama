@@ -43,7 +43,7 @@ class Source extends Component {
                 style={styles.container}
             >
                 <View>
-                    <Text>{this.props.title}</Text>
+                    <Text style={styles.titleText}>{this.props.title}</Text>
                 </View>
             </TouchableHighlight>
         );
@@ -56,8 +56,12 @@ const styles = StyleSheet.create({
     height: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#6ab7ff',
-    borderBottomWidth: 1
+    backgroundColor: '#64b5f6',
+    borderRadius: 10,
+    margin: 5
+  },
+  titleText: {
+      fontSize: 25
   }
 });
 
