@@ -11,17 +11,14 @@ import NavigationDrawerComponent from './components/NavigationDrawer/index';
 const RouterComponent = () => {
     return (
         <Router>
-            <Scene key="root">
-                <Scene
-                    key='drawer'
-                    drawer
-                    contentComponent={NavigationDrawerComponent}
-                >
+            <Scene key='drawer'
+                drawer
+                contentComponent={NavigationDrawerComponent}
+            >
                     <Scene
                         key="channels"
                         component={Main}
                         title='Channels'
-                        initial
                     />
                     <Scene
                         key="favorites"
@@ -37,6 +34,7 @@ const RouterComponent = () => {
                         key="shows"
                         component={Shows}
                         title='Shows'
+                        back
                     />
                     <Scene
                         key="sources"
@@ -47,9 +45,9 @@ const RouterComponent = () => {
                         key='video'
                         component={Video}
                         title='Player'
+                        back
                     />
                 </Scene>
-            </Scene>
         </Router>
     );
 };
