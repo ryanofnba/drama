@@ -3,6 +3,7 @@ import ShowReducer from './showReducer';
 import ListReducer from './listReducer';
 import SourceReducer from './sourceReducer';
 import ShowsReducer from './showsReducer';
+import FavoritesReducer from './favoritesReducer';
 import ChannelsReducer from './channelsReducer';
 import HomeChannelsReducer from './homeChannelsReducer';
 import EpisodesReducer from './episodesReducer';
@@ -16,5 +17,6 @@ export default combineReducers({
     episodes: EpisodesReducer,
     videoLink: VideoReducer,
     channels: ChannelsReducer,
-    homeChannels: HomeChannelsReducer
+    homeChannels: HomeChannelsReducer,
+    favorites: FavoritesReducer
 });

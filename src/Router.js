@@ -1,8 +1,9 @@
 import React from 'react';
-import { Scene, Router, ActionConst } from 'react-native-router-flux';
+import { Scene, Router } from 'react-native-router-flux';
 import Main from './components/main/index';
 import Video from './components/Video/index';
 import Shows from './components/Shows/index';
+import Favorites from './components/Favorites/index';
 import Channels from './components/Channels/index';
 import Sources from './components/Sources/index';
 import NavigationDrawerComponent from './components/NavigationDrawer/index';
@@ -23,28 +24,29 @@ const RouterComponent = () => {
                         initial
                     />
                     <Scene
+                        key="favorites"
+                        component={Favorites}
+                        title='Favorite Shows'
+                    />
+                    <Scene
                         key="subchannels"
                         component={Channels}
                         title='More Channels'
-                        back
                     />
                     <Scene
                         key="shows"
                         component={Shows}
                         title='Shows'
-                        back
                     />
                     <Scene
                         key="sources"
                         component={Sources}
                         title='Sources'
-                        back
                     />
                     <Scene
                         key='video'
                         component={Video}
                         title='Player'
-                        back
                     />
                 </Scene>
             </Scene>

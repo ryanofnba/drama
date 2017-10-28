@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { parseString } from 'xml2js';
-import { View, Text, Image, TouchableWithoutFeedback, LayoutAnimation, StyleSheet } from 'react-native';
+import nodeEmoji from 'node-emoji';
+import { AsyncStorage, View, Text, Image, TouchableWithoutFeedback, LayoutAnimation, StyleSheet } from 'react-native';
 import * as actions from '../../actions/index';
 import Episode from '../Episode/index';
 import Source from '../Source/index';
@@ -14,12 +15,19 @@ class Show extends Component {
         this.state = {
             episodes: [],
             expanded: false,
-            expandSources: false
+            expandSources: false,
+            isFavorite: false
         };
 
         this.handlePress = this.handlePress.bind(this);
         this.fetchEpisodes = this.fetchEpisodes.bind(this);
         this.handleFinishFetchingSources = this.handleFinishFetchingSources.bind(this);
+        this.handleFavorite = this.handleFavorite.bind(this);
+    }
+
+    componentWillMount() {
+        AsyncStorage.getItem('favorites')
+            .then(req => this.finishLoading(JSON.parse(req)));
     }
 
     componentWillUpdate() {
@@ -37,6 +45,16 @@ class Show extends Component {
         }
 
         LayoutAnimation.easeInEaseOut();
+    }
+
+    finishLoading(shows) {
+        shows.map(show => {
+            if (show.channelURL === this.props.channelURL) {
+                this.setState({
+                    isFavorite: true
+                });
+            }
+        })
     }
 
     fetchEpisodes(url, reFetch) {
@@ -72,6 +90,42 @@ class Show extends Component {
         } else if (this.state.expanded) {
             this.setState({
                 expanded: false
+            });
+        }
+    }
+
+    handleFavorite() {
+        debugger;
+        if (!this.state.isFavorite) {
+            const favorite = {
+                key: this.props.title[0],
+                title: this.props.title[0],
+                bookmark: this.props.bookmark[0],
+                imageURL: this.props.imageURL,
+                channelURL: this.props.channelURL,
+                episodes: this.props.episodes
+            };
+            let favorites = [];
+
+            favorites = favorites.concat(this.props.favorites);
+
+            favorites.push(favorite);
+
+            AsyncStorage.setItem('favorites', JSON.stringify(favorites))
+                .then(() => {
+                    this.props.setFavorites(favorites);
+                    this.setState({
+                        isFavorite: true
+                    });
+                });
+        } else {
+            const favorites = this.props.favorites;
+
+            favorites.splice(this.props.favorites.indexOf(this.props.channelURL), 1);
+
+            this.props.setFavorites(favorites);
+            this.setState({
+                isFavorite: false
             });
         }
     }
@@ -132,6 +186,15 @@ class Show extends Component {
                                 {this.state.expanded ? 'hide' : 'expand'}
                             </Text>
                         </View>
+                        <TouchableWithoutFeedback
+                            onPress={this.handleFavorite}
+                        >
+                            <View style={styles.emojiContainer}>
+                                <Text>{this.state.isFavorite
+                                    ? nodeEmoji.get('hearts')
+                                    : nodeEmoji.get('yellow_heart')}</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
                     </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.episodesContainer}>
@@ -174,6 +237,13 @@ const styles = StyleSheet.create({
       height: 200,
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor: 'white'
+  },
+  emojiContainer: {
+      width: 100,
+      height: 200,
+      alignItems: 'center',
+      justifyContent: 'center',
       backgroundColor: 'white',
       borderTopRightRadius: 50
   },
@@ -181,16 +251,15 @@ const styles = StyleSheet.create({
       fontSize: 25
   },
   arrowText: {
-      marginTop: 20,
-      fontSize: 20,
-      color: '#2286c3'
+      fontSize: 20
   }
 });
 
 const mapStateToProps = state => {
     return {
         selectedShow: state.selectedShow,
-        sources: state.sources
+        sources: state.sources,
+        favorites: state.favorites
     };
 };
 
