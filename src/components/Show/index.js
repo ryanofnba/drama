@@ -175,8 +175,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: 'white',
-      borderTopLeftRadius: 50,
-      borderTopRightRadius: 50,
+      borderTopRightRadius: 50
   },
   titleText: {
       fontSize: 25
