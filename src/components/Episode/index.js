@@ -14,7 +14,11 @@ class Episode extends Component {
     }
 
     handlePress() {
-        this.fetchEpisodeSources(this.props.episodeLinkURL.url);
+        if (this.props.episodeLinkURL.url.includes('page=')) {
+            this.props.onFetchEpisodes(this.props.episodeLinkURL.url, true);
+        } else {
+            this.fetchEpisodeSources(this.props.episodeLinkURL.url);
+        }
     }
 
     fetchEpisodeSources(url) {
